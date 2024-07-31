@@ -33,6 +33,10 @@ function App() {
       <Route path="/stores" element={<Stores />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/addStore" element={<AddStore />}/>
+      <Route path="/additem" element={<AddItem />}/>
+      <Route path="/items" element={<Items />}/>
+     <Route path="/phoneRole" element={<PhoneRole/>}/>
     </Routes>
     </div>
   );
