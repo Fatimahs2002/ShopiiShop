@@ -12,8 +12,6 @@ const InitState = {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'user', // Default role is set to 'user'
-    phoneNumber: ''
 };
 
 function Signup() {
@@ -33,7 +31,7 @@ function Signup() {
     }
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
 
         if (name === "firstName" || name === "lastName") {
             const firstName = name === "firstName" ? value : sForm.firstName;
@@ -45,10 +43,9 @@ function Signup() {
                 userName: userName.toLowerCase() // Optionally convert to lowercase
             });
         } else {
-            const updatedValue = type === 'checkbox' ? (checked ? 'owner' : 'user') : value;
             setsForm({
                 ...sForm,
-                [name]: updatedValue
+                [name]: value
             });
         }
     };
@@ -70,7 +67,7 @@ function Signup() {
         e.preventDefault();
         
         // Check form validation conditions
-        if (sForm.userName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" && sForm.phoneNumber !== ""
+        if (sForm.userName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" 
             && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
             setShowModal(true); // Open modal to collect additional data
         }
@@ -102,20 +99,6 @@ function Signup() {
                     <input name="confirmPassword" onChange={handleChange} placeholder="Retype your password" type="password"/>
                 </div>
 
-                <div className={SignUp.inputContainer}>
-                    <label>Phone Number</label>
-                    <input name="phoneNumber" onChange={handleChange} placeholder="Enter your phone number" type="number"/>
-                </div>
-
-                <div className={SignUp.inputContainer}>
-                    <label>Role</label>
-                    <input
-                        name="role"
-                        type="checkbox"
-                        onChange={handleChange}
-                    />    
-                </div>
-
                 <div className={SignUp.footerContainer}>
                     <div>
                         Already Signed Up? <Link to="/account/login">Login</Link>
@@ -137,26 +120,6 @@ function Signup() {
                     <div className={SignUp.modalContainer}>
                         <div className={SignUp.modalContent}>
                             <h2>Additional Information</h2>
-                            <div className={SignUp.inputContainer}>
-                            <label>magazine owner ?</label>
-                            <input
-                                name="role"
-                                type="checkbox"
-                                onChange={handleChange}
-                                required
-                            />    
-                        </div>
-                            <div className={SignUp.inputContainer}>
-                                <label>Phone Number</label>
-                                <input
-                                    name="phoneNumber"
-                                    value={sForm.phoneNumber}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="Enter your phone number"
-                                    required
-                                />
-                            </div>
                             <div className={SignUp.modalButtonContainer}>
                                 <button onClick={handleModalSubmit}>Sign up with Google</button>
                                 <br></br>
