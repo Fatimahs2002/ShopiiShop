@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './index.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import NotificationButton from '../../../components/dashboard/notification/index';
 
@@ -142,7 +142,7 @@ const AddStore = () => {
               </div>
             </div>
           </div>
-          <button className='btn btn-primary ml-auto' type="submit">Add store</button>
+         <NavLink Link='/addStore'> <button className='btn btn-primary ml-auto' type="submit">Add store</button></NavLink>
         </form>
       </div>
       

@@ -15,20 +15,20 @@ const Layout = ({ isAdmin }) => {
   console.log(location)
   console.log(location.pathname)
   return (
-    <>
+    <div>
       <nav>
         <img width={150} src={logo} alt='' />
         <ul>
 
-          {isAdmin && (
+          {!isAdmin && (
             <li><NavLink to="/sections" activeClassName="active" className={location.pathname === "/addSection" ? "active" : ""}><MdDashboardCustomize /> sections</NavLink></li>
           )}
 
           {!isAdmin && (
-            <>
+            <div>
               <li><NavLink to="/stores" activeClassName="active" className={location.pathname === "/addStore" ? "active" : ""}><FaStore /> Stores</NavLink></li>
               <li><NavLink to="/items" activeClassName="active" className={location.pathname === "/addItem" ? "active" : ""}><PiShoppingBagFill /> items</NavLink></li>
-            </>
+            </div>
           )}
           <li><NavLink to="/map" activeClassName="active"><HiLocationMarker /> Map</NavLink></li>
           <li className='mt-auto'><NavLink className='flex-row' to="/login" activeClassName="active"><BiExit /> Logout</NavLink></li>
@@ -40,7 +40,7 @@ const Layout = ({ isAdmin }) => {
         <li><NavLink to="/addStore" activeClassName="active"><PiShoppingBagFill /> add store</NavLink></li>
         <li><NavLink to="/addItem" activeClassName="active"><PiShoppingBagFill /> add item</NavLink></li> */}
 
-    </>
+    </div>
   )
 }
 
