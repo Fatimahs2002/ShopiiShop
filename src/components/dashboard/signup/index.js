@@ -13,31 +13,12 @@ const InitState = {
     confirmPassword: '',
     userName: '' // Ensure this is initialized in state
 };
-<<<<<<< HEAD
-  
-
-
-=======
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
 
 function Signup() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-<<<<<<< HEAD
-    const [sForm,
-        setsForm] = useState(InitState)
-
-    const handleOpenModal = () => {
-        setShowModal(true);
-    }
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    }
-=======
     const [sForm, setsForm] = useState(InitState);
     const [showModal, setShowModal] = useState(false);
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -58,13 +39,6 @@ function Signup() {
             });
         }
     };
-<<<<<<< HEAD
-    const handleChange = (e) => setsForm({
-        ...sForm,
-        [e.target.name]: e.target.value
-    });
-=======
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
 
     function handleGoogleLoginSuccess(tokenResponse) {
         const accessToken = tokenResponse.access_token;
@@ -73,22 +47,12 @@ function Signup() {
 
     function handleOnSubmit(e) {
         e.preventDefault();
-<<<<<<< HEAD
-        
-        // Check form validation conditions
-        if (sForm.userName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" 
-            && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
-            setShowModal(true); // Open modal to collect additional data
-        if (sForm.firstName !== "" && sForm.lastName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
-            dispatch(signup(sForm,nagivate))
-=======
 
         if (sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
             if (sForm.firstName && sForm.lastName && sForm.email) {
                 // Here you might want to add more validation if needed
                 setShowModal(true); // Open modal to collect additional data
             }
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
         }
     }
 
@@ -116,15 +80,8 @@ function Signup() {
                     <input onChange={handleChange} name="password" placeholder="Enter your password" type="password"/>
                 </div>
                 <div className={SignUp.inputContainer}>
-<<<<<<< HEAD
-                    <label>Confirm Password</label>
-                    <input name="confirmPassword" onChange={handleChange} placeholder="Retype your password" type="password"/>
-                    <label>CONFIRM PASSWORD</label>
-                    <input name="confirmPassword" onChange={handleChange} placeholder="retype your password" type="password"/>
-=======
                     <label>CONFIRM PASSWORD</label>
                     <input onChange={handleChange} name="confirmPassword" placeholder="Retype your password" type="password"/>
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
                 </div>
 
                 <div className={SignUp.footerContainer}>
@@ -142,25 +99,6 @@ function Signup() {
                     <i className="fa-brands fa-google"></i> Sign up with Google
                 </button>
 
-<<<<<<< HEAD
-                 
-            </div>
-
-            {showModal && (
-                <div className={SignUp.modalOverlay}>
-                    <div className={SignUp.modalContainer}>
-                        <div className={SignUp.modalContent}>
-                            <h2>Additional Information</h2>
-                            <div className={SignUp.modalButtonContainer}>
-                                <button onClick={handleModalSubmit}>Sign up with Google</button>
-                                <br></br>
-                                <button onClick={handleCloseModal}>Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-=======
                 {showModal && (
                     <div className={SignUp.modalOverlay}>
                         <div className={SignUp.modalContainer}>
@@ -176,7 +114,6 @@ function Signup() {
                     </div>
                 )}
             </div>
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
         </div>
     );
 }

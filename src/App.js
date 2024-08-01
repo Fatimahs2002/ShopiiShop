@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import User from '../src/pages/user/home/home';
@@ -68,4 +66,4 @@ function App() {
 }
 
 export default App;
->>>>>>> 526bf28c527e0a0f5978f10cb14ae4843ea39ee4
+
