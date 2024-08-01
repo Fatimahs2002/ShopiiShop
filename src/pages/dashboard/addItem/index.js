@@ -1,48 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './index.css';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
-import NotificationButton from '../../../components/dashboard/notification/index';
+
 
 const AddItem = () => {
   const navigate = useNavigate();
-  const [subCategories, setSubCategories] = useState([]);
+  const [userId,setUserId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
+    userId:userId,
     name: '',
     sPrice: 0,
     pPrice: 0,
     ingredients: '',
-    storeId: '',
-    categoryId: '',
-    userId: '',
-    image: null,
-    subCategory: '' // Added subCategory state
+    category: '', // Added category
+    image: null
   });
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    if (userInfo) {
+      try {
+        setUserId(userInfo.result._id);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        userId: userId,
+      }));
+      console.log('UserId from local storage:', userId);
+      formData.userId = userId;
+      console.log(formData);
+    }
+  }, [userId]);
+ 
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleCategoryChange = async (e) => {
-    const categoryId = e.target.value;
-    console.log(categoryId)
-    setFormData({
-      ...formData,
-      categoryId // Update categoryId in formData
-    });
-
-    try {
-      const response = await axios.get(`http://localhost:5000/subCategories/getSubcategoriesByCategoryId/${categoryId}`);
-      setSubCategories(response.data);
-    } catch (error) {
-      console.error('Error fetching subcategories:', error);
-    }
-    // console.log(categoryId)
   };
 
   const handleFileChange = (e) => {
@@ -76,10 +80,10 @@ const AddItem = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/categories/getCategories');
+        const response = await axios.get('http://localhost:5000/categoriesInStore/getCategoriesInStore');
         setCategories(response.data);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching categories in store:', error);
       }
     };
 
@@ -89,6 +93,7 @@ const AddItem = () => {
   const goBack = () => {
     navigate(-1)
   }
+
   return (
     <div>
       <div>
@@ -125,45 +130,21 @@ const AddItem = () => {
         </div>
         <div className='col-md-6'>
           <div className="form-group">
-            <label>Store ID</label>
-            <input className="form-control" type="text" name="storeId" value={formData.storeId} onChange={handleChange} placeholder="Store ID" required />
+            <label>Select Category In store</label>
+            <select className="form-control" name="category" value={formData.category} onChange={handleChange} required>
+              <option value="">Select Category In store</option>
+              {categories.map(category => (
+                <option key={category._id} value={category._id}>{category.name}</option>
+              ))}
+            </select>
           </div>
         </div>
-
         <div className='col-md-6'>
-        <div className="form-group">
-          <label>User ID</label>
-          <input className="form-control" type="text" name="userId" value={formData.userId} onChange={handleChange} placeholder="User ID" required />
+          <div className="form-group">
+            <label>Image</label>
+            <input className="form-control" type="file" name="image" onChange={handleFileChange} required />
+          </div>
         </div>
-      </div>
-            <div className='col-md-6'>
-              <div className="form-group">
-              <label>Select Category</label>
-                <select className="form-control" name="categoryId" value={formData.categoryId} onChange={handleCategoryChange} required>
-                  <option value="">Select Category</option>
-                  {categories.map(category => (
-                    <option key={category._id} value={category._id}>{category.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className='col-md-6'>
-              <div className="form-group">
-              <label>Select Sub-Category</label>
-                <select className="form-control" name="subCategory" value={formData.subCategory} onChange={handleChange} required>
-                  <option value="">Select Sub-Category</option>
-                  {subCategories.map(subCategory => (
-                    <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className='col-md-6'>
-              <div className="form-group">
-                <label>Image</label>
-                <input className="form-control" type="file" name="image" onChange={handleFileChange} required />
-              </div>
-            </div>
           </div>
           <button className='btn btn-primary ml-auto' type="submit">Add Item</button>
         </form>

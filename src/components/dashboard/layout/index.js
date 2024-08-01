@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink, Outlet, createBrowserRouter, RouterProvider, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import logo from './logo.jpeg';
 import './index.css';
@@ -9,39 +9,82 @@ import { PiShoppingBagFill } from 'react-icons/pi';
 import { BiExit } from 'react-icons/bi';
 import { FaStore } from 'react-icons/fa';
 
-const Layout = ({ isAdmin }) => {
+const Layout = () => {
+  const [user, setUser] = useState(null);
+  const [isIn, setIsIn] = useState(false);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    if (userInfo) {
+      try {
+        setUser(userInfo.result);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setIsIn(true);
+      console.log(user.role);
+    }
+  }, [user]);
 
   const location = useLocation();
-  console.log(location)
-  console.log(location.pathname)
+
   return (
     <div>
-      <nav>
-        <img width={150} src={logo} alt='' />
-        <ul>
-
-          {!isAdmin && (
-            <li><NavLink to="/sections" activeClassName="active" className={location.pathname === "/addSection" ? "active" : ""}><MdDashboardCustomize /> sections</NavLink></li>
-          )}
-
-          {!isAdmin && (
-            <div>
-              <li><NavLink to="/stores" activeClassName="active" className={location.pathname === "/addStore" ? "active" : ""}><FaStore /> Stores</NavLink></li>
-              <li><NavLink to="/items" activeClassName="active" className={location.pathname === "/addItem" ? "active" : ""}><PiShoppingBagFill /> items</NavLink></li>
-            </div>
-          )}
-          <li><NavLink to="/map" activeClassName="active"><HiLocationMarker /> Map</NavLink></li>
-          <li className='mt-auto'><NavLink className='flex-row' to="/login" activeClassName="active"><BiExit /> Logout</NavLink></li>
-        </ul>
-      </nav>
-      {/*<li><NavLink to="/home" activeClassName="active"><HiHome /> sections</NavLink></li>
-        <li><NavLink to="/addSection" activeClassName="active"><PiShoppingBagFill /> add section</NavLink></li>
-        <li><NavLink to="/addStore" activeClassName="active"><MdDashboardCustomize /> add store</NavLink></li>
-        <li><NavLink to="/addStore" activeClassName="active"><PiShoppingBagFill /> add store</NavLink></li>
-        <li><NavLink to="/addItem" activeClassName="active"><PiShoppingBagFill /> add item</NavLink></li> */}
-
+      {isIn && user.role === 'superAdmin' && (
+        <nav>
+          <div>
+            <ul>
+              <li>
+                <NavLink to="/" activeclassname="active" className={location.pathname === "/" ? "active" : ""}>
+                  <img width={150} src={logo} alt="" />
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/sections" activeclassname="active" className={location.pathname === "/sections" ? "active" : ""}>
+                  <MdDashboardCustomize /> Sections
+                </NavLink>
+              </li>
+              <div>
+                <li>
+                  <NavLink to="/stores" activeclassname="active" className={location.pathname === "/stores" ? "active" : ""}>
+                    <FaStore /> Stores
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/items" activeclassname="active" className={location.pathname === "/items" ? "active" : ""}>
+                    <PiShoppingBagFill /> Items
+                  </NavLink>
+                </li>
+              </div>
+              <li>
+                <NavLink to="/map" activeclassname="active" className={location.pathname === "/map" ? "active" : ""}>
+                  <HiLocationMarker /> Map
+                </NavLink>
+              </li>
+              <li className="mt-auto">
+                <NavLink
+                  className="flex-row"
+                  onClick={() => {
+                    localStorage.clear();
+                    setIsIn(false);
+                  }}
+                  to="/login"
+                  activeclassname="active"
+                >
+                  <BiExit /> Logout
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      )}
     </div>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

@@ -92,7 +92,7 @@ function Home() {
   // console.log(loc.pathname)
 
   return (
-    <>
+    <div>
   
       <div className="header justify-content-between">
         <div className="location" onClick={handleButtonClick}>
@@ -136,7 +136,7 @@ function Home() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
