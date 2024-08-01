@@ -31,7 +31,9 @@ const Layout = ({ isAdmin }) => {
             </>
           )}
           <li><NavLink to="/map" activeClassName="active"><HiLocationMarker /> Map</NavLink></li>
+          <li><NavLink to="/src/pages/dashboard/CategoryInStore" activeClassName="active"><HiLocationMarker /> Category In Store</NavLink></li>
           <li className='mt-auto'><NavLink className='flex-row' to="/login" activeClassName="active"><BiExit /> Logout</NavLink></li>
+        
         </ul>
       </nav>
       {/*<li><NavLink to="/home" activeClassName="active"><HiHome /> sections</NavLink></li>
