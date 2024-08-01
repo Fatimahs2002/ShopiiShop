@@ -1,27 +1,33 @@
-import React, { useState } from "react";
-import SignUp from "./Signup.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useGoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
-import { signup, signupGoogle } from "../../../redux/actions/auth";
+import React, {useState} from "react";
+import SignUp from "./Signup.module.css"
+import {Link,useNavigate} from "react-router-dom"
+
+import {useGoogleLogin} from '@react-oauth/google';
+import {useDispatch} from 'react-redux';
+import {signup, signupGoogle} from "../../../redux/actions/auth";
+
 
 const InitState = {
     firstName: "",
     lastName: "",
-    userName: "", // Added userName field
     email: '',
     password: '',
+<<<<<<< HEAD
     confirmPassword: '',
 };
+=======
+    confirmPassword: ''
+}
+
+>>>>>>> adel
 
 function Signup() {
-    const currentPath = window.location.pathname;
-    console.log(currentPath);
-    const navigate = useNavigate();
+    const nagivate = useNavigate();
     const dispatch = useDispatch();
-    const [sForm, setsForm] = useState(InitState);
-    const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+    const [sForm,
+        setsForm] = useState(InitState)
 
+<<<<<<< HEAD
     const handleOpenModal = () => {
         setShowModal(true);
     }
@@ -49,72 +55,87 @@ function Signup() {
             });
         }
     };
+=======
+    const handleChange = (e) => setsForm({
+        ...sForm,
+        [e.target.name]: e.target.value
+    });
+>>>>>>> adel
 
     function handleGoogleLoginSuccess(tokenResponse) {
-        const accessToken = tokenResponse.access_token;
-        dispatch(signupGoogle(accessToken, navigate));
-        setShowModal(true); // Open modal on successful Google login
-    }
 
-    function handleModalSubmit() {
-        setShowModal(false); // Close modal
-        // Validate form inputs if needed
-        login();
-       // Dispatch signup action with all form data
+        const accessToken = tokenResponse.access_token;
+
+        dispatch(signupGoogle(accessToken,nagivate))
     }
 
     function handleOnSubmit(e) {
         e.preventDefault();
+<<<<<<< HEAD
         
         // Check form validation conditions
         if (sForm.userName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" 
             && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
             setShowModal(true); // Open modal to collect additional data
+=======
+        if (sForm.firstName !== "" && sForm.lastName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
+            dispatch(signup(sForm,nagivate))
+>>>>>>> adel
         }
     }
 
-    const login = useGoogleLogin({ onSuccess: handleGoogleLoginSuccess });
-
+    const login = useGoogleLogin({onSuccess: handleGoogleLoginSuccess});
     return (
         <div className={SignUp.loginContainer}>
             <div className={SignUp.loginContainerv2}>
                 <h1>Create your account</h1>
 
                 <div className={SignUp.inputContainer}>
-                    <label>Username</label>
-                    <input name="userName" value={sForm.userName} onChange={handleChange} placeholder="Enter your username" type="text"/>
+                    <label>FRIST NAME</label>
+                    <input onChange={handleChange} name="firstName" placeholder="enter your first name" type="text"/>
                 </div>
                 <div className={SignUp.inputContainer}>
-                    <label>Email</label>
-                    <input name="email" onChange={handleChange} placeholder="Enter your email" type="email"/>
+                    <label>LAST NAME</label>
+                    <input name="lastName" onChange={handleChange} placeholder="enter your last name" type="text"/>
+                </div>
+                <div className={SignUp.inputContainer}>
+                    <label>EMAIL</label>
+                    <input name="email" onChange={handleChange} placeholder="enter your email" type="email"/>
                 </div>
 
                 <div className={SignUp.inputContainer}>
-                    <label>Password</label>
-                    <input name="password" onChange={handleChange} placeholder="Enter your password" type="password"/>
+                    <label>PASSWORD</label>
+                    <input name="password" onChange={handleChange} placeholder="enter your password" type="password"/>
                 </div>
 
                 <div className={SignUp.inputContainer}>
+<<<<<<< HEAD
                     <label>Confirm Password</label>
                     <input name="confirmPassword" onChange={handleChange} placeholder="Retype your password" type="password"/>
+=======
+                    <label>CONFIRM PASSWORD</label>
+                    <input name="confirmPassword" onChange={handleChange} placeholder="retype your password" type="password"/>
+>>>>>>> adel
                 </div>
 
                 <div className={SignUp.footerContainer}>
-                    <div>
-                        Already Signed Up? <Link to="/account/login">Login</Link>
+                        <div>
+                            Already Signed Up? <Link to="/login">Login</Link>
+                        </div>
+                        <div>
+                            <Link to="/account/forgotpassword">Forgot Password?</Link>
+                        </div>
                     </div>
-                    <div>
-                        <Link to="/account/forgotpassword">Forgot Password?</Link>
-                    </div>
-                </div>
 
                 <button onClick={handleOnSubmit} className={SignUp.loginBTN}>REGISTER</button>
-                <span className={SignUp.or}>or</span>
-                <button onClick={() => handleOpenModal()} className={SignUp.googleBTN}>
-                    <i className="fa-brands fa-google"></i>  Sign up with Google
-                </button>
+                 <span className={SignUp.or}>or</span>
+                 <button  onClick={() => login()}  className={SignUp.googleBTN}>
+                    <i class="fa-brands fa-google"></i>  Sign up with google</button>
+
+                 
             </div>
 
+<<<<<<< HEAD
             {showModal && (
                 <div className={SignUp.modalOverlay}>
                     <div className={SignUp.modalContainer}>
@@ -129,8 +150,10 @@ function Signup() {
                     </div>
                 </div>
             )}
+=======
+>>>>>>> adel
         </div>
-    );
+    )
 }
 
 export default Signup;
