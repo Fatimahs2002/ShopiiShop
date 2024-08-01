@@ -17,12 +17,12 @@ export const loadUser = () => async (dispatch) => {
     if (localUser) {
         dispatch({ type: AUTH, data: localUser });
     }
-};
-export const signin = (data2, navigate) => async (dispath) =>{
-    try{
-        const {data} = await api.signIn(data2)
+};export const signin = (data2, navigate) => async (dispatch) => {
+    try {
+        const { data } = await api.signIn(data2);
 
-        dispath({type: AUTH, data})
+        dispatch({ type: AUTH, data });
+
         switch (data.result.role) {
             case 'user':
                 navigate('/userHome');
@@ -37,15 +37,16 @@ export const signin = (data2, navigate) => async (dispath) =>{
                 navigate('/driver');
                 break;
             case 'superAdmin':
-                navigate('/');
+                navigate('/', { state: { role: data.result.role } });
                 break;
             default:
                 break;
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
-}
+};
+
 
 export const signinGoogle = (accessToken, navigate) => async (dispatch)=>{
     try{
@@ -68,7 +69,6 @@ export const signinGoogle = (accessToken, navigate) => async (dispatch)=>{
               navigate('/driver');
               break;
             default:
-              navigate('/'); // Fallback to home page if role is unknown
               break;
           }
     }catch(err){

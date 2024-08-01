@@ -16,7 +16,7 @@ import AddStore from './pages/dashboard/addStore';
 import AddItem from './pages/dashboard/addItem';
 import Items from './pages/dashboard/items';
 import AdminLogin from './pages/dashboard/adminLogin';
-
+              
 function App() {
   // Check user role from localStorage
   const userInfo = JSON.parse(localStorage.getItem('user_info'));
@@ -27,7 +27,7 @@ function App() {
     <div className="App d-flex main-body">
       <Layout isAdmin={isAdmin} />
       <Routes>
-<<<<<<< HEAD
+
   
       <Route path="/user" element={<User />} />
       <Route path="/dashboard" element={<Dashboard />} />
@@ -39,8 +39,8 @@ function App() {
       <Route path="/additem" element={<AddItem />}/>
       <Route path="/items" element={<Items />}/>
      <Route path="/phoneRole" element={<PhoneRole/>}/>
-    </Routes>
-=======
+  
+
         <Route path='/' element={<h1>super admin home </h1>} />
         <Route path="/sections" element={<Sections />} />
         <Route path="/user" element={<User />} />
@@ -59,9 +59,8 @@ function App() {
         <Route path="/merchant" element={<h1>merchant home </h1>} />
         <Route path='/userHome' element={<User />} />
         <Route path='/adminLogin' element={<AdminLogin />} />
-      </Routes>
->>>>>>> adel
-    </div>
+        </Routes>
+</div>
   );
 }
 
