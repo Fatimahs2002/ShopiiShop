@@ -12,14 +12,11 @@ const InitState = {
     lastName: "",
     email: '',
     password: '',
-<<<<<<< HEAD
     confirmPassword: '',
 };
-=======
-    confirmPassword: ''
-}
+  
 
->>>>>>> adel
+
 
 function Signup() {
     const nagivate = useNavigate();
@@ -27,7 +24,6 @@ function Signup() {
     const [sForm,
         setsForm] = useState(InitState)
 
-<<<<<<< HEAD
     const handleOpenModal = () => {
         setShowModal(true);
     }
@@ -55,12 +51,10 @@ function Signup() {
             });
         }
     };
-=======
     const handleChange = (e) => setsForm({
         ...sForm,
         [e.target.name]: e.target.value
     });
->>>>>>> adel
 
     function handleGoogleLoginSuccess(tokenResponse) {
 
@@ -71,16 +65,13 @@ function Signup() {
 
     function handleOnSubmit(e) {
         e.preventDefault();
-<<<<<<< HEAD
         
         // Check form validation conditions
         if (sForm.userName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" 
             && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
             setShowModal(true); // Open modal to collect additional data
-=======
         if (sForm.firstName !== "" && sForm.lastName !== "" && sForm.password !== "" && sForm.confirmPassword !== "" && sForm.email !== "" && sForm.password === sForm.confirmPassword && sForm.password.length >= 4) {
             dispatch(signup(sForm,nagivate))
->>>>>>> adel
         }
     }
 
@@ -109,13 +100,10 @@ function Signup() {
                 </div>
 
                 <div className={SignUp.inputContainer}>
-<<<<<<< HEAD
                     <label>Confirm Password</label>
                     <input name="confirmPassword" onChange={handleChange} placeholder="Retype your password" type="password"/>
-=======
                     <label>CONFIRM PASSWORD</label>
                     <input name="confirmPassword" onChange={handleChange} placeholder="retype your password" type="password"/>
->>>>>>> adel
                 </div>
 
                 <div className={SignUp.footerContainer}>
@@ -135,7 +123,6 @@ function Signup() {
                  
             </div>
 
-<<<<<<< HEAD
             {showModal && (
                 <div className={SignUp.modalOverlay}>
                     <div className={SignUp.modalContainer}>
@@ -150,8 +137,6 @@ function Signup() {
                     </div>
                 </div>
             )}
-=======
->>>>>>> adel
         </div>
     )
 }
